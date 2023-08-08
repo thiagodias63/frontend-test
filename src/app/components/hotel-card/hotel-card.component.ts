@@ -7,8 +7,8 @@ import {Component} from '@angular/core';
       <div class="hotel-card__grid">
         <div>
           <nz-carousel [nzEffect]="effect">
-            <div nz-carousel-content *ngFor="let index of array">
-              <h3>{{ index }}</h3>
+            <div nz-carousel-content>
+              <h3>1</h3>
             </div>
           </nz-carousel>
         </div>
