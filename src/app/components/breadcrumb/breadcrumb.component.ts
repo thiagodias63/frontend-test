@@ -14,10 +14,10 @@ import {Component} from '@angular/core';
     `
       .breadcrumb__container {
         margin: 1rem 0;
-        color: ;
       }
       ::ng-deep .ant-breadcrumb-link {
         color: var(--primaryColor);
+        font-size: 0.625rem;
       }
       ::ng-deep .ant-breadcrumb-link > a {
         color: var(--secondaryColor);

@@ -21,11 +21,29 @@ import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzBreadCrumbModule} from 'ng-zorro-antd/breadcrumb';
 import {BreadcrumbComponent} from './components/breadcrumb/breadcrumb.component';
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import {OrganizarListagemReservasComponent} from './components/organizar-listagem-reservas/organizar-listagem-reservas.component';
+import {HotelCardComponent} from './components/hotel-card/hotel-card.component';
+import {NzDividerModule} from 'ng-zorro-antd/divider';
+import {NzRateModule} from 'ng-zorro-antd/rate';
+import {NzCarouselModule} from 'ng-zorro-antd/carousel';
+import {HotelCardSecaoInformacoesComponent} from './components/hotel-card/hotel-card-secao-informacoes/hotel-card-secao-informacoes.component';
+import {HotelCardSecaoValoresComponent} from './components/hotel-card/hotel-card-secao-valores/hotel-card-secao-valores.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ReservarHotelCardComponent, FormularioBuscarReservaComponent, BreadcrumbComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    ReservarHotelCardComponent,
+    FormularioBuscarReservaComponent,
+    BreadcrumbComponent,
+    OrganizarListagemReservasComponent,
+    HotelCardComponent,
+    HotelCardSecaoInformacoesComponent,
+    HotelCardSecaoValoresComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +58,10 @@ registerLocaleData(en);
     ReactiveFormsModule,
     NzButtonModule,
     NzBreadCrumbModule,
+    NzDropDownModule,
+    NzDividerModule,
+    NzRateModule,
+    NzCarouselModule,
   ],
   providers: [{provide: NZ_I18N, useValue: en_US}],
   bootstrap: [AppComponent],
