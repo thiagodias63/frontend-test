@@ -4,5 +4,7 @@
   <organizar-listagem-reservas />
 </div>
 <div>
-  <hotel-card></hotel-card>
+  <div *ngIf="hoteis$ | async as hoteis" class="hoteis__grid">
+    <hotel-card *ngFor="let hotel of hoteis" [hotel]="hotel"></hotel-card>
+  </div>
 </div>

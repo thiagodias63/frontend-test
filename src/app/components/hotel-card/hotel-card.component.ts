@@ -1,18 +1,26 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Hotel} from 'src/app/entities/hotel/hotel';
 
 @Component({
   selector: 'hotel-card',
   template: `
-    <nz-card>
+    <nz-card *ngIf="hotel">
       <div class="hotel-card__grid">
         <div>
           <nz-carousel [nzEffect]="effect">
-            <div nz-carousel-content>
-              <h3>1</h3>
+            <div nz-carousel-content *ngFor="let image of hotel.images">
+              <!-- <h3>1</h3> -->
+              <div [ngStyle]="{backgroundImage: 'url(' + image + ')'}" class="hotel-card__image"></div>
             </div>
           </nz-carousel>
         </div>
-        <hotel-card-secao-informacoes />
+        <hotel-card-secao-informacoes
+          [nome]="hotel.name"
+          [descricao]="hotel.description"
+          [avaliacao]="hotel.stars"
+          [comodidades]="hotel.amenities"
+          [reembolsavel]="hotel.hasRefundableRoom"
+        />
         <div class="divisao"></div>
         <hotel-card-secao-valores />
       </div>
@@ -42,10 +50,15 @@ import {Component} from '@angular/core';
       .divisao {
         background-color: var(--backgroundColor);
       }
+      .hotel-card__image {
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+      }
     `,
   ],
 })
 export class HotelCardComponent {
-  array = [1, 2, 3, 4];
   effect = 'scrollx';
+  @Input() hotel: Hotel | undefined;
 }

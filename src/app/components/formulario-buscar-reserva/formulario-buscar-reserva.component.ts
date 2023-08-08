@@ -3,22 +3,26 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {NzAutocompleteOptionComponent} from 'ng-zorro-antd/auto-complete';
 import {Observable, map, startWith, switchMap} from 'rxjs';
+import {alterarFiltroDestinoAction} from 'src/app/buscar-hoteis/store/buscar-hoteis.actions';
 import {nomesDestinos} from 'src/app/buscar-hoteis/store/buscar-hoteis.selectors';
+import {KeyValuePair} from 'src/app/entities/core/key-value';
 import {Place} from 'src/app/entities/place/place';
 import * as fromApp from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'formulario-buscar-reserva',
-  template: ` <form nz-form nzLayout="vertical" [formGroup]="buscarReservaForm">
+  template: ` <form nz-form nzLayout="vertical" [formGroup]="buscarReservaForm" (ngSubmit)="aoBuscar()">
     <nz-form-item>
       <nz-form-label [nzSpan]="24" nzFor="destino" nzRequired>Destino</nz-form-label>
-      <nz-form-control [nzSpan]="24" *ngIf="options$ | async as options">
-        <input nz-input name="destino" type="text" id="destino" formControlName="destino" [nzAutocomplete]="auto" />
-        <nz-autocomplete [nzDataSource]="options" nzBackfill #auto (selectionChange)="aoAlterarDestino($event)"></nz-autocomplete>
+      <nz-form-control [nzSpan]="24" *ngIf="options$ | async as options" nzHasFeedback>
+        <input nz-input name="destino" type="text" id="destino" formControlName="destino" [nzAutocomplete]="auto" required />
+        <nz-autocomplete nzBackfill #auto>
+          <nz-auto-option *ngFor="let option of options" [nzValue]="option.key">{{ option.value }}</nz-auto-option>
+        </nz-autocomplete>
       </nz-form-control>
     </nz-form-item>
 
-    <button nz-button class="buscar-reserva__buscar" nzSize="large" nzShape="round" nzType="primary">{{ textoBotaoBuscar }}</button>
+    <button type="submit" nz-button class="buscar-reserva__buscar" nzSize="large" nzShape="round" nzType="primary">{{ textoBotaoBuscar }}</button>
   </form>`,
   styles: [
     `
@@ -31,24 +35,27 @@ import * as fromApp from 'src/app/store/app.reducer';
 export class FormularioBuscarReservaComponent {
   textoBotaoBuscar: 'Buscar' | 'Alterar Busca' = 'Buscar';
   destinos$: Observable<Place[]>;
-  nomesDestinos$: Observable<string[]>;
-  options$: Observable<string[] | null>;
+  nomesDestinos$: Observable<KeyValuePair[]>;
+  options$: Observable<KeyValuePair[] | null>;
+  destinos: Place[] = [];
   buscarReservaForm = this.formBuilder.group({
-    destino: ['', Validators.required],
-    chaveDestino: ['', Validators.required],
+    destino: ['', [Validators.minLength(3), Validators.required]],
   });
 
   constructor(private formBuilder: FormBuilder, private store: Store<fromApp.AppState>) {
     this.destinos$ = this.store.select('buscarHoteis').pipe(map((buscarHoteisState) => buscarHoteisState.destinos));
     this.nomesDestinos$ = this.store.select(nomesDestinos);
+    this.destinos$.subscribe((destinos: Place[]) => {
+      this.destinos = destinos;
+    });
 
     this.options$ = this.buscarReservaForm.controls.destino.valueChanges.pipe(
       startWith(''),
       switchMap(
-        (novoDestino: string | null): Observable<string[]> =>
+        (novoDestino: string | null): Observable<KeyValuePair[]> =>
           this.nomesDestinos$.pipe(
-            map((destinos: string[]): string[] =>
-              destinos.filter((destino) => destino.toLocaleLowerCase().includes(novoDestino?.toLocaleLowerCase() || ''))
+            map((destinos: KeyValuePair[]): KeyValuePair[] =>
+              destinos.filter((destino) => destino.value.toLocaleLowerCase().includes(novoDestino?.toLocaleLowerCase() || ''))
             )
           )
       )
@@ -57,12 +64,25 @@ export class FormularioBuscarReservaComponent {
 
   aoAlterarDestino($event: NzAutocompleteOptionComponent): void {
     const [cidadeDestino, estadoDestino] = $event.nzValue.split(', ');
-    this.destinos$.subscribe((destinos: Place[]) => {
-      const destino = destinos.find((destino: Place) => {
-        return destino.name === cidadeDestino && destino.state.name === estadoDestino;
-      });
-      if (!destino) return;
-      this.buscarReservaForm.controls.destino.setValue(`${destino.name}, ${destino.state.shortname}`);
+
+    const destino = this.destinos.find((destino: Place) => {
+      return destino.name === cidadeDestino && destino.state.name === estadoDestino;
     });
+    if (!destino) return;
+    this.buscarReservaForm.controls.destino.setValue(`${destino.name}, ${destino.state.shortname}`);
+  }
+
+  aoBuscar() {
+    if (this.buscarReservaForm.invalid || !this.buscarReservaForm.value.destino) return;
+
+    const [cidadeDestino, estadoDestino] = this.buscarReservaForm.value.destino.split(', ');
+
+    const destino = this.destinos.find((destino: Place) => {
+      return destino.name === cidadeDestino && destino.state.shortname === estadoDestino;
+    });
+    if (!destino) return;
+
+    this.store.dispatch(alterarFiltroDestinoAction({filtroDestino: destino}));
+    this.textoBotaoBuscar = 'Alterar Busca';
   }
 }

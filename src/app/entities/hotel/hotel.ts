@@ -6,7 +6,7 @@ export interface Hotel {
   favorite: boolean;
   name: string;
   description: string;
-  stars: string;
+  stars: string | number;
   thumb: string;
   amenities: Amenity;
   hasBreakFast: boolean;
@@ -14,7 +14,7 @@ export interface Hotel {
   hasAgreement: boolean;
   nonRefundable?: boolean;
   address: Address;
-  images: string;
+  images: string[];
   deals: string;
   roomsQuantity: number;
 }

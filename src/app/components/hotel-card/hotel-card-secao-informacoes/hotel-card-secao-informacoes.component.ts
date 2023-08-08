@@ -1,18 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'hotel-card-secao-informacoes',
   template: `
     <section class="secao-informacoes__container">
-      <h2 class="secao-informacoes__nome-hotel">Mélia Paulista</h2>
-      <p class="secao-informacoes__localizacao">São paulo, Paraiso, A 2,97 km do centro</p>
+      <h2 class="secao-informacoes__nome-hotel">{{ nome }}</h2>
+      <p class="secao-informacoes__localizacao">{{ descricao }}</p>
       <div class="secao-informacoes__avaliacao">
-        <span>8.3</span>
-        <nz-rate [nzDisabled]="true" [ngModel]="5"></nz-rate>
+        <span>{{ avaliacao }}</span>
+        <nz-rate [nzDisabled]="true" [ngModel]="avaliacao"></nz-rate>
         <nz-divider class="divisor" nzType="vertical"></nz-divider>
       </div>
 
-      <span class="reembolsavel-badge">Reembolsável</span>
+      <span *ngIf="reembolsavel" class="reembolsavel-badge">Reembolsável</span>
     </section>
   `,
   styles: [
@@ -20,6 +20,7 @@ import {Component} from '@angular/core';
       .secao-informacoes__container {
         padding-left: 1.5rem;
         padding-top: 1rem;
+        padding-bottom: 1rem;
       }
       .secao-informacoes__nome-hotel {
         font-size: 1rem;
@@ -59,4 +60,10 @@ import {Component} from '@angular/core';
     `,
   ],
 })
-export class HotelCardSecaoInformacoesComponent {}
+export class HotelCardSecaoInformacoesComponent {
+  @Input() nome: string | undefined;
+  @Input() descricao: string | undefined;
+  @Input() comodidades: any | undefined;
+  @Input() avaliacao: string | number | undefined;
+  @Input() reembolsavel: boolean | undefined;
+}
