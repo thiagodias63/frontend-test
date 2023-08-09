@@ -1,12 +1,20 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Amenity} from 'src/app/entities/hotel/amenity';
 
 @Component({
   selector: 'comodidades',
   template: `
-    <div class="comodidades__container">
+    <div class="comodidades__container" [ngClass]="{'comodidades-container---com-titulo': mostrarNome}">
+      <ng-container *ngFor="let secao of comodidadesSecoes">
+        <ng-container *ngFor="let comodidade of comodidades.slice(secao * 4, secao * 4 + 4)">
+          <span class="comodidade__titulo" *ngIf="mostrarNome">
+            <span>{{ icons.get(comodidade.key) }}</span>
+            {{ comodidade.label }}
+          </span>
+        </ng-container>
+      </ng-container>
       <ng-container *ngFor="let comodidade of comodidades">
-        <span [title]="comodidade.label">{{ icons.get(comodidade.key) }}</span>
+        <span *ngIf="!mostrarNome" [title]="comodidade.label">{{ icons.get(comodidade.key) }}</span>
       </ng-container>
     </div>
   `,
@@ -16,11 +24,24 @@ import {Amenity} from 'src/app/entities/hotel/amenity';
         display: inline-flex;
         gap: 3px;
       }
+      .comodidades-container---com-titulo {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 15px;
+        justify-content: space-between;
+        min-width: 770px;
+        font-size: 0.75rem;
+      }
+      .comodidade__titulo {
+        display: inline-flex;
+        gap: 3px;
+      }
     `,
   ],
 })
-export class ComodidadesComponent {
+export class ComodidadesComponent implements OnInit {
   @Input() comodidades: Amenity[] = [];
+  @Input() comodidadesSecoes: number[] = [];
   @Input() mostrarNome = false;
   @Input() mostrarResumido = false;
   icons = new Map();
@@ -39,5 +60,16 @@ export class ComodidadesComponent {
     this.icons.set('STEAM_ROOM', '🎬');
     this.icons.set('AIR_CONDITIONING', '❄️');
     this.icons.set('SAFE', '🛡');
+    this.icons.set('ROOM_TV', '📺');
+    this.icons.set('RECEPTION_24_HOURS', '🕒');
+    this.icons.set('MASSAGE', '💆');
+    this.icons.set('STAGE', '🎭');
+    this.icons.set('AUDITORIUM', '🎤');
+  }
+
+  ngOnInit(): void {
+    for (let i = 0; i < this.comodidades.length / 4; i++) {
+      this.comodidadesSecoes.push(i);
+    }
   }
 }

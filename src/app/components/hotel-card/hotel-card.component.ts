@@ -1,5 +1,8 @@
 import {Component, Input} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {alterarHotelSelecionadoAction} from 'src/app/buscar-hoteis/store/buscar-hoteis.actions';
 import {Hotel} from 'src/app/entities/hotel/hotel';
+import * as fromApp from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'hotel-card',
@@ -7,7 +10,7 @@ import {Hotel} from 'src/app/entities/hotel/hotel';
     <nz-card *ngIf="hotel">
       <div class="hotel-card__grid">
         <div>
-          <nz-carousel [nzEffect]="effect">
+          <nz-carousel nzEffect="scrollx">
             <!-- <div nz-carousel-content *ngFor="let image of hotel.images">
               <div [ngStyle]="{backgroundImage: 'url(' + image + ')'}" class="hotel-card__image"></div>
             </div> -->
@@ -21,7 +24,7 @@ import {Hotel} from 'src/app/entities/hotel/hotel';
           [reembolsavel]="hotel.hasRefundableRoom"
         />
         <div class="divisao"></div>
-        <hotel-card-secao-valores />
+        <hotel-card-secao-valores (aoSelecionarHotel)="selecionarHotel()" />
       </div>
     </nz-card>
   `,
@@ -58,6 +61,11 @@ import {Hotel} from 'src/app/entities/hotel/hotel';
   ],
 })
 export class HotelCardComponent {
-  effect = 'scrollx';
-  @Input() hotel: Hotel | undefined;
+  @Input() hotel: Hotel | null = null;
+
+  constructor(private store: Store<fromApp.AppState>) {}
+
+  selecionarHotel() {
+    this.store.dispatch(alterarHotelSelecionadoAction({hotelSelecionado: this.hotel}));
+  }
 }

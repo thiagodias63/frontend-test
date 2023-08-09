@@ -22,6 +22,9 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzSpinModule} from 'ng-zorro-antd/spin';
 import {ComodidadesComponent} from '../components/comodidades/comodidades.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {NzDrawerModule} from 'ng-zorro-antd/drawer';
+import {HotelDrawerComponent} from '../components/hotel-drawer/hotel-drawer.component';
+import {AddressPipeModule} from '../pipes/address-pipe.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     HotelCardSecaoInformacoesComponent,
     HotelCardSecaoValoresComponent,
     ComodidadesComponent,
+    HotelDrawerComponent,
   ],
   exports: [BuscarHoteisComponent],
   imports: [
@@ -52,6 +56,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     NzSpinModule,
     NzIconModule,
     InfiniteScrollModule,
+    NzDrawerModule,
+    AddressPipeModule,
   ],
 })
 export class BuscarHoteisModule {}

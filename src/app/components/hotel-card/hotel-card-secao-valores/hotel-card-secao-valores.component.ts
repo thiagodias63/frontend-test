@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'hotel-card-secao-valores',
@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
       <span class="per-noite__row">R$444,00/noite</span>
       <span class="impostos__row">Impostos inclusos</span>
     </p>
-    <button nz-button class="botao-selecionar" nzSize="large" nzShape="round" nzType="primary">Selecionar</button>
+    <button (click)="aoSelecionarHotel.emit()" nz-button class="botao-selecionar" nzSize="large" nzShape="round" nzType="primary">Selecionar</button>
   </div>`,
   styles: [
     `
@@ -39,4 +39,6 @@ import {Component} from '@angular/core';
     `,
   ],
 })
-export class HotelCardSecaoValoresComponent {}
+export class HotelCardSecaoValoresComponent {
+  @Output() aoSelecionarHotel = new EventEmitter<null>();
+}

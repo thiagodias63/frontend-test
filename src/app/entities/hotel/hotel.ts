@@ -15,6 +15,6 @@ export interface Hotel {
   nonRefundable?: boolean;
   address: Address;
   images: string[];
-  deals: string;
+  deals: string | null;
   roomsQuantity: number;
 }
