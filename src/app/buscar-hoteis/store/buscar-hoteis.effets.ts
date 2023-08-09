@@ -29,7 +29,7 @@ export class BuscarHoteisEffects {
     {dispatch: true}
   );
 
-  buscarHoteis = createEffect(
+  buscarHoteisEffect = createEffect(
     () =>
       this.actions$.pipe(
         ofType(alterarFiltroDestinoAction, alterarOrganizarPorAction, alterarPaginaAtualAction),
