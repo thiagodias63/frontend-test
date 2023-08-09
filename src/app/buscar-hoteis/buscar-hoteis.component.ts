@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store';
 import {Observable, map} from 'rxjs';
 import {Hotel} from '../entities/hotel/hotel';
 import * as fromApp from 'src/app/store/app.reducer';
+import {alterarPaginaAtualAction} from './store/buscar-hoteis.actions';
 
 @Component({
   selector: 'buscar-hoteis',
@@ -17,5 +18,9 @@ export class BuscarHoteisComponent {
         return {hoteis: buscarHoteisState.hoteis, carregandoHoteis: buscarHoteisState.carregandoHoteis, semHoteis: buscarHoteisState.semHoteis};
       })
     );
+  }
+
+  aoArrastarParaBaixo(): void {
+    this.store.dispatch(alterarPaginaAtualAction());
   }
 }

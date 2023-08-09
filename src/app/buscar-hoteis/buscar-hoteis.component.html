@@ -4,7 +4,14 @@
   <organizar-listagem-reservas />
 </div>
 <div *ngIf="vm$ | async as vm">
-  <div class="hoteis__grid">
+  <div
+    class="hoteis__grid"
+    *ngIf="vm.hoteis.length"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="aoArrastarParaBaixo()"
+  >
     <hotel-card *ngFor="let hotel of vm.hoteis" [hotel]="hotel"></hotel-card>
   </div>
 

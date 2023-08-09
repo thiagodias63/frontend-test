@@ -21,6 +21,7 @@ import {CommonModule} from '@angular/common';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzSpinModule} from 'ng-zorro-antd/spin';
 import {ComodidadesComponent} from '../components/comodidades/comodidades.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {ComodidadesComponent} from '../components/comodidades/comodidades.compon
     NzAutocompleteModule,
     NzSpinModule,
     NzIconModule,
+    InfiniteScrollModule,
   ],
 })
 export class BuscarHoteisModule {}

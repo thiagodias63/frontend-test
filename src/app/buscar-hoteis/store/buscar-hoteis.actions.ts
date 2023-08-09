@@ -14,3 +14,5 @@ export const alterarHoteisActions = createAction('[Buscar Hoteis] Alterar hoteis
 export const alterarOrganizarPorAction = createAction('[Buscar Hoteis] Alterar organizado por', props<{novoFiltro: organizarPorOpcoes}>());
 
 export const alterarSemHoteisAction = createAction('[Buscar Hoteis] Alterar sem hoteis', props<{semHoteis: boolean}>());
+
+export const alterarPaginaAtualAction = createAction('[Buscar Hoteis] Alterar pagina atual');

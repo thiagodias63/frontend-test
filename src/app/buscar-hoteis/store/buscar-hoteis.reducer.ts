@@ -5,6 +5,7 @@ import {
   alterarFiltroDestinoAction,
   alterarHoteisActions,
   alterarOrganizarPorAction,
+  alterarPaginaAtualAction,
   alterarSemHoteisAction,
 } from './buscar-hoteis.actions';
 import {Hotel} from 'src/app/entities/hotel/hotel';
@@ -19,6 +20,7 @@ export interface State {
   organizarPorSelecionado: organizarPorOpcoes;
   carregandoHoteis: boolean;
   semHoteis: boolean;
+  paginaAtual: number;
 }
 
 const initialState: State = {
@@ -30,6 +32,7 @@ const initialState: State = {
   organizarPorSelecionado: 'Recomendados',
   carregandoHoteis: false,
   semHoteis: false,
+  paginaAtual: 0,
 };
 
 export const buscarHoteisReducer = createReducer(
@@ -38,15 +41,19 @@ export const buscarHoteisReducer = createReducer(
     return {...state, destinos: action.destinos};
   }),
   on(alterarFiltroDestinoAction, (state, action) => {
-    return {...state, filtroDestino: action.filtroDestino, nomeHotel: action.nomeHotel, hoteis: [], carregandoHoteis: true};
+    return {...state, filtroDestino: action.filtroDestino, nomeHotel: action.nomeHotel, hoteis: [], paginaAtual: 0, carregandoHoteis: true};
   }),
   on(alterarHoteisActions, (state, action) => {
-    return {...state, hoteis: action.hoteis, mostrarOrganizadoPor: true, carregandoHoteis: false};
+    const newHoteis = state.hoteis.concat(action.hoteis);
+    return {...state, hoteis: newHoteis, mostrarOrganizadoPor: true, carregandoHoteis: false};
   }),
   on(alterarOrganizarPorAction, (state, action) => {
-    return {...state, organizarPorSelecionado: action.novoFiltro, hoteis: [], carregandoHoteis: true};
+    return {...state, organizarPorSelecionado: action.novoFiltro, hoteis: [], paginaAtual: 0, carregandoHoteis: true};
   }),
   on(alterarSemHoteisAction, (state, action) => {
     return {...state, semHoteis: action.semHoteis};
+  }),
+  on(alterarPaginaAtualAction, (state) => {
+    return {...state, paginaAtual: state.paginaAtual + 10, carregandoHoteis: true};
   })
 );

@@ -8,6 +8,7 @@ import {
   alterarFiltroDestinoAction,
   alterarHoteisActions,
   alterarOrganizarPorAction,
+  alterarPaginaAtualAction,
   alterarSemHoteisAction,
   iniciarCarregamentoDeDestinosAction,
 } from './buscar-hoteis.actions';
@@ -32,16 +33,21 @@ export class BuscarHoteisEffects {
   buscarHoteis = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(alterarFiltroDestinoAction, alterarOrganizarPorAction),
+        ofType(alterarFiltroDestinoAction, alterarOrganizarPorAction, alterarPaginaAtualAction),
         withLatestFrom(
           this.store.select('buscarHoteis').pipe(
-            map((buscarHoteisState): {filtroDestino: Place | null; nomeHotel: string; organizarPorSelecionado: organizarPorOpcoes} => {
-              return {
-                filtroDestino: buscarHoteisState.filtroDestino,
-                nomeHotel: buscarHoteisState.nomeHotel,
-                organizarPorSelecionado: buscarHoteisState.organizarPorSelecionado,
-              };
-            })
+            map(
+              (
+                buscarHoteisState
+              ): {filtroDestino: Place | null; nomeHotel: string; organizarPorSelecionado: organizarPorOpcoes; paginaAtual: number} => {
+                return {
+                  filtroDestino: buscarHoteisState.filtroDestino,
+                  nomeHotel: buscarHoteisState.nomeHotel,
+                  organizarPorSelecionado: buscarHoteisState.organizarPorSelecionado,
+                  paginaAtual: buscarHoteisState.paginaAtual,
+                };
+              }
+            )
           )
         ),
         switchMap(
@@ -62,7 +68,8 @@ export class BuscarHoteisEffects {
                       if (a[parametroDeComparacao] < b[parametroDeComparacao]) return -1 * ordenacao;
                       if (a[parametroDeComparacao] > b[parametroDeComparacao]) return 1 * ordenacao;
                       return 0;
-                    }) || []
+                    })
+                    .slice(buscarHoteisState.paginaAtual, buscarHoteisState.paginaAtual + 10) || []
               )
             )
         ),
