@@ -103,7 +103,6 @@ import * as fromApp from 'src/app/store/app.reducer';
         color: var(--primaryColor);
         border-color: var(--primaryColor);
         width: fit-content;
-        /* align-self: center; */
         border-radius: 25px;
       }
     `,

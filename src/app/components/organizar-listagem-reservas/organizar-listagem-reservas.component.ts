@@ -22,7 +22,6 @@ import * as fromApp from 'src/app/store/app.reducer';
       </nz-dropdown-menu>
     </div>
   </ng-container>`,
-  styles: [``],
 })
 export class OrganizarListagemReservasComponent {
   vm$: Observable<{mostrarOrganizadoPor: boolean; organizarPorSelecionado: organizarPorOpcoes}>;

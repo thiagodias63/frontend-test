@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import {TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppComponent} from './app.component';
+import {StoreModule} from '@ngrx/store';
+import {appReducer} from './store/app.reducer';
+import {HeaderComponent} from './components/header/header.component';
+import {BuscarHoteisModule} from './buscar-hoteis/buscar-hoteis.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterTestingModule, BuscarHoteisModule, StoreModule.forRoot(appReducer)],
+      declarations: [AppComponent, HeaderComponent],
     }).compileComponents();
   });
 
@@ -20,16 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'onfly-frontend-test'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('onfly-frontend-test');
-  });
-
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('onfly-frontend-test app is running!');
+    expect(compiled.querySelector('buscar-hoteis')).toBeTruthy();
   });
 });
