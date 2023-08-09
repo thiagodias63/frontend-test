@@ -1,6 +1,6 @@
 import {Place} from 'src/app/entities/place/place';
 
-export const destinosExemplo: Place[] = [
+export const destinosMock: Place[] = [
   {
     name: 'Belo Horizonte',
     state: {

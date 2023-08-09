@@ -65,7 +65,7 @@ export const buscarHoteisReducer = createReducer(
     return {...state, semHoteis: action.semHoteis};
   }),
   on(alterarPaginaAtualAction, (state) => {
-    return {...state, paginaAtual: state.paginaAtual + 10, carregandoHoteis: true};
+    return {...state, paginaAtual: state.paginaAtual + 1, carregandoHoteis: true};
   }),
   on(alterarHotelSelecionadoAction, (state, action) => {
     return {...state, hotelSelecionado: action.hotelSelecionado};

@@ -4,7 +4,7 @@ import {AppState, appReducer} from 'src/app/store/app.reducer';
 import {BuscarHoteisModule} from '../../buscar-hoteis/buscar-hoteis.module';
 import {FormularioBuscarReservaComponent} from './formulario-buscar-reserva.component';
 import {NzAutocompleteOptionComponent} from 'ng-zorro-antd/auto-complete';
-import {destinosExemplo} from 'src/tests/mocks/destinos';
+import {destinosMock} from 'src/tests/mocks/destinos';
 import {alterarFiltroDestinoAction} from 'src/app/buscar-hoteis/store/buscar-hoteis.actions';
 
 describe('FormularioBuscarReserva', () => {
@@ -18,7 +18,7 @@ describe('FormularioBuscarReserva', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(FormularioBuscarReservaComponent);
     component = fixture.componentInstance;
-    component.destinos = destinosExemplo;
+    component.destinos = destinosMock;
     store = TestBed.inject(Store);
   });
 

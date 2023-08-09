@@ -19,7 +19,7 @@
         <div class="hotel-drawer__comodidades">
           <comodidades [mostrarNome]="true" [comodidades]="hotelSelecionado.amenities.slice(0, 4)" />
           <button
-            *ngIf="!mostrarTodasComodidades"
+            *ngIf="!mostrarTodasComodidades && hotelSelecionado.amenities.length > 4"
             nz-button
             nzType="default"
             class="hotel-drawer__botao-mostrar-comodidades"

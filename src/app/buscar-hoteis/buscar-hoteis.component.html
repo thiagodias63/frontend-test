@@ -19,7 +19,11 @@
     <nz-spin nzSimple></nz-spin>
   </div>
 
-  <div *ngIf="vm.semHoteis">
+  <div *ngIf="vm.semHoteis && !!vm.hoteis.length">
+    <p>Acabaram os hoteis.</p>
+  </div>
+
+  <div *ngIf="vm.semHoteis && !vm.hoteis.length">
     <p>Não foi encontrado nenhum hotel.</p>
   </div>
 

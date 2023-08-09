@@ -69,7 +69,7 @@ export class BuscarHoteisEffects {
                       if (a[parametroDeComparacao] > b[parametroDeComparacao]) return 1 * ordenacao;
                       return 0;
                     })
-                    .slice(buscarHoteisState.paginaAtual, buscarHoteisState.paginaAtual + 10) || []
+                    .slice(buscarHoteisState.paginaAtual * 10, buscarHoteisState.paginaAtual * 10 + 10) || []
               )
             )
         ),

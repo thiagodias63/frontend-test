@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {BuscarHoteisModule} from '../../buscar-hoteis/buscar-hoteis.module';
-import {hotelExemplo} from 'src/tests/mocks/hotel';
+import {hotelMock} from 'src/tests/mocks/hotel';
 import {HotelCarouselImagesComponent} from './hotel-carousel-images.component';
 
 describe('HotelCarouselImagesComponent', () => {
@@ -13,7 +13,7 @@ describe('HotelCarouselImagesComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(HotelCarouselImagesComponent);
     component = fixture.componentInstance;
-    component.imagens = hotelExemplo.images;
+    component.imagens = hotelMock.images;
     component.nzCarouselComponent = jasmine.createSpyObj('NzCarouselComponent', ['pre', 'next']);
   });
 

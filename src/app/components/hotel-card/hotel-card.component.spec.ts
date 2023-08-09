@@ -4,7 +4,7 @@ import {AppState, appReducer} from 'src/app/store/app.reducer';
 import {BuscarHoteisModule} from '../../buscar-hoteis/buscar-hoteis.module';
 import {HotelCardComponent} from './hotel-card.component';
 import {alterarHotelSelecionadoAction} from 'src/app/buscar-hoteis/store/buscar-hoteis.actions';
-import {hotelExemplo} from 'src/tests/mocks/hotel';
+import {hotelMock} from 'src/tests/mocks/hotel';
 
 describe('HotelCardComponent', () => {
   let fixture;
@@ -17,7 +17,7 @@ describe('HotelCardComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(HotelCardComponent);
     component = fixture.componentInstance;
-    component.hotel = hotelExemplo;
+    component.hotel = hotelMock;
     store = TestBed.inject(Store);
   });
 

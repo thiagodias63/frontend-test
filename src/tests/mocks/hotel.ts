@@ -1,6 +1,6 @@
 import {Hotel} from 'src/app/entities/hotel/hotel';
 
-export const hotelExemplo: Hotel = {
+export const hotelMock: Hotel = {
   deals: null,
   id: 29613,
   favorite: false,
