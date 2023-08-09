@@ -35,13 +35,14 @@ describe('BuscarHoteisStore', () => {
   });
 
   describe('#alterarFiltroDestinoAction', () => {
-    it('deve alterar o filtro de destino e de nome para os recebidos, zerar os hoteis e a página atual e começar a carregar os hoteis', (done) => {
+    it('deve alterar o filtro de destino e de nome para os recebidos, zerar os hoteis, zerar a página atual, não mostrar "sem hoteis" e começar a carregar os hoteis', (done) => {
       store.dispatch(alterarFiltroDestinoAction({filtroDestino: destinosExemplo[0], nomeHotel: 'nomeHotel'}));
       store.select('buscarHoteis').subscribe((buscarHoteisStore) => {
         expect(buscarHoteisStore.filtroDestino).toEqual(destinosExemplo[0]);
         expect(buscarHoteisStore.nomeHotel).toEqual('nomeHotel');
         expect(buscarHoteisStore.hoteis.length).toEqual(0);
         expect(buscarHoteisStore.paginaAtual).toEqual(0);
+        expect(buscarHoteisStore.semHoteis).toEqual(false);
         expect(buscarHoteisStore.carregandoHoteis).toEqual(true);
         done();
       });

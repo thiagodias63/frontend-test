@@ -9,13 +9,8 @@ import * as fromApp from 'src/app/store/app.reducer';
   template: `
     <nz-card *ngIf="hotel">
       <div class="hotel-card__grid">
-        <div>
-          <nz-carousel nzEffect="scrollx">
-            <!-- <div nz-carousel-content *ngFor="let image of hotel.images">
-              <div [ngStyle]="{backgroundImage: 'url(' + image + ')'}" class="hotel-card__image"></div>
-            </div> -->
-          </nz-carousel>
-        </div>
+        <hotel-carousel-images [imagens]="hotel.images" />
+
         <hotel-card-secao-informacoes
           [nome]="hotel.name"
           [descricao]="hotel.description"
@@ -41,7 +36,7 @@ import * as fromApp from 'src/app/store/app.reducer';
         min-height: 255px;
         width: 100%;
       }
-      .hotel-card__grid > :first-child {
+      ::ng-deep hotel-card .hotel-card__grid > :first-child .hotel-carousel-images__foto-hotel {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
       }
@@ -51,11 +46,6 @@ import * as fromApp from 'src/app/store/app.reducer';
       }
       .divisao {
         background-color: var(--backgroundColor);
-      }
-      .hotel-card__image {
-        background-size: cover;
-        width: 100%;
-        height: 100%;
       }
     `,
   ],

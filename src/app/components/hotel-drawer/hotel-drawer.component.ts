@@ -21,13 +21,14 @@ import * as fromApp from 'src/app/store/app.reducer';
             <p class="hotel-drawer__endereco-hotel">{{ hotelSelecionado.address | addressPipe }}</p>
           </section>
 
-          <div>
+          <!-- <div>
             <nz-carousel [nzEffect]="'scrollx'">
               <div nz-carousel-content *ngFor="let image of hotelSelecionado.images">
                 <div [ngStyle]="{backgroundImage: 'url(' + image + ')'}" class="hotel-drawer__image"></div>
               </div>
             </nz-carousel>
-          </div>
+          </div> -->
+          <hotel-carousel-images [fotoHotelGrande]="true" [imagens]="hotelSelecionado.images" />
 
           <section>
             <h2 class="hotel-drawer__titulo-secao">Facilidades do hotel</h2>
@@ -86,12 +87,6 @@ import * as fromApp from 'src/app/store/app.reducer';
       .hotel-drawer__titulo-secao {
         margin-top: 30px;
         font-size: 1.125rem;
-      }
-      .hotel-drawer__image {
-        background-size: cover;
-        width: 100%;
-        height: 418px;
-        border-radius: 18px;
       }
       .hotel-drawer__comodidades {
         display: flex;

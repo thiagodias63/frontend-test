@@ -44,7 +44,15 @@ export const buscarHoteisReducer = createReducer(
     return {...state, destinos: action.destinos};
   }),
   on(alterarFiltroDestinoAction, (state, action) => {
-    return {...state, filtroDestino: action.filtroDestino, nomeHotel: action.nomeHotel, hoteis: [], paginaAtual: 0, carregandoHoteis: true};
+    return {
+      ...state,
+      filtroDestino: action.filtroDestino,
+      nomeHotel: action.nomeHotel,
+      hoteis: [],
+      paginaAtual: 0,
+      carregandoHoteis: true,
+      semHoteis: false,
+    };
   }),
   on(alterarHoteisActions, (state, action) => {
     const newHoteis = state.hoteis.concat(action.hoteis);

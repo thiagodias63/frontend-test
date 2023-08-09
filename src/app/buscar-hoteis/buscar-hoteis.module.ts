@@ -25,6 +25,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {HotelDrawerComponent} from '../components/hotel-drawer/hotel-drawer.component';
 import {AddressPipeModule} from '../pipes/address-pipe.module';
+import {HotelCarouselImagesComponent} from '../components/hotel-carousel-images/hotel-carousel-images.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {AddressPipeModule} from '../pipes/address-pipe.module';
     HotelCardSecaoValoresComponent,
     ComodidadesComponent,
     HotelDrawerComponent,
+    HotelCarouselImagesComponent,
   ],
   exports: [BuscarHoteisComponent],
   imports: [

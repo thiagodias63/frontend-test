@@ -4,7 +4,7 @@ import {Amenity} from 'src/app/entities/hotel/amenity';
 @Component({
   selector: 'comodidades',
   template: `
-    <div class="comodidades__container" [ngClass]="{'comodidades-container---com-titulo': mostrarNome}">
+    <div *ngIf="mostrarNome" ngClass="comodidades__container---com-titulo">
       <ng-container *ngFor="let secao of comodidadesSecoes">
         <ng-container *ngFor="let comodidade of comodidades.slice(secao * 4, secao * 4 + 4)">
           <span class="comodidade__titulo" *ngIf="mostrarNome">
@@ -13,8 +13,10 @@ import {Amenity} from 'src/app/entities/hotel/amenity';
           </span>
         </ng-container>
       </ng-container>
+    </div>
+    <div *ngIf="!mostrarNome" class="comodidades__container">
       <ng-container *ngFor="let comodidade of comodidades">
-        <span *ngIf="!mostrarNome" [title]="comodidade.label">{{ icons.get(comodidade.key) }}</span>
+        <span [title]="comodidade.label">{{ icons.get(comodidade.key) }}</span>
       </ng-container>
     </div>
   `,
@@ -24,7 +26,7 @@ import {Amenity} from 'src/app/entities/hotel/amenity';
         display: inline-flex;
         gap: 3px;
       }
-      .comodidades-container---com-titulo {
+      .comodidades__container---com-titulo {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 15px;
@@ -43,7 +45,6 @@ export class ComodidadesComponent implements OnInit {
   @Input() comodidades: Amenity[] = [];
   @Input() comodidadesSecoes: number[] = [];
   @Input() mostrarNome = false;
-  @Input() mostrarResumido = false;
   icons = new Map();
   constructor() {
     this.icons.set('WI_FI', '📶');
@@ -68,8 +69,10 @@ export class ComodidadesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < this.comodidades.length / 4; i++) {
-      this.comodidadesSecoes.push(i);
+    if (this.mostrarNome) {
+      for (let i = 0; i < this.comodidades.length / 4; i++) {
+        this.comodidadesSecoes.push(i);
+      }
     }
   }
 }

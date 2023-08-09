@@ -59,6 +59,7 @@ describe('ComodidadesComponent', () => {
           label: 'Recepção 24 horas',
         },
       ];
+      component.mostrarNome = true;
       component.ngOnInit();
       expect(component.comodidadesSecoes.length).toEqual(2);
     });
