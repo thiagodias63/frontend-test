@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {Amenity} from 'src/app/entities/hotel/amenity';
 
 @Component({
   selector: 'hotel-card-secao-informacoes',
@@ -10,6 +11,7 @@ import {Component, Input} from '@angular/core';
         <span>{{ avaliacao }}</span>
         <nz-rate [nzDisabled]="true" [ngModel]="avaliacao"></nz-rate>
         <nz-divider class="divisor" nzType="vertical"></nz-divider>
+        <comodidades [comodidades]="comodidades" />
       </div>
 
       <span *ngIf="reembolsavel" class="reembolsavel-badge">Reembolsável</span>
@@ -61,9 +63,9 @@ import {Component, Input} from '@angular/core';
   ],
 })
 export class HotelCardSecaoInformacoesComponent {
-  @Input() nome: string | undefined;
-  @Input() descricao: string | undefined;
-  @Input() comodidades: any | undefined;
-  @Input() avaliacao: string | number | undefined;
-  @Input() reembolsavel: boolean | undefined;
+  @Input() nome = '';
+  @Input() descricao = '';
+  @Input() comodidades: Amenity[] = [];
+  @Input() avaliacao: string | number = 0;
+  @Input() reembolsavel = false;
 }

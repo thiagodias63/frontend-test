@@ -20,6 +20,7 @@ import {NzAutocompleteModule} from 'ng-zorro-antd/auto-complete';
 import {CommonModule} from '@angular/common';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzSpinModule} from 'ng-zorro-antd/spin';
+import {ComodidadesComponent} from '../components/comodidades/comodidades.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {NzSpinModule} from 'ng-zorro-antd/spin';
     HotelCardComponent,
     HotelCardSecaoInformacoesComponent,
     HotelCardSecaoValoresComponent,
+    ComodidadesComponent,
   ],
   exports: [BuscarHoteisComponent],
   imports: [

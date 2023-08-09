@@ -8,7 +8,7 @@ export interface Hotel {
   description: string;
   stars: string | number;
   thumb: string;
-  amenities: Amenity;
+  amenities: Amenity[];
   hasBreakFast: boolean;
   hasRefundableRoom: boolean;
   hasAgreement: boolean;
