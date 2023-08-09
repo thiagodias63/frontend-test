@@ -1,0 +1,22 @@
+::ng-deep hotel-card .ant-card-body {
+  padding: 0;
+  min-height: 255px;
+  width: 100%;
+}
+.hotel-card__grid {
+  display: grid;
+  grid-template-columns: 34% 40% 0.5% 25.5%;
+  min-height: 255px;
+  width: 100%;
+}
+::ng-deep hotel-card .hotel-card__grid > :first-child .hotel-carousel-images__foto-hotel {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.hotel-card__grid > :last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.divisao {
+  background-color: var(--backgroundColor);
+}

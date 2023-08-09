@@ -1,0 +1,15 @@
+<div *ngIf="mostrarNome" ngClass="comodidades__container---com-titulo">
+  <ng-container *ngFor="let secao of comodidadesSecoes">
+    <ng-container *ngFor="let comodidade of comodidades.slice(secao * 4, secao * 4 + 4)">
+      <span class="comodidade__titulo" *ngIf="mostrarNome">
+        <span>{{ icons.get(comodidade.key) }}</span>
+        {{ comodidade.label }}
+      </span>
+    </ng-container>
+  </ng-container>
+</div>
+<div *ngIf="!mostrarNome" class="comodidades__container">
+  <ng-container *ngFor="let comodidade of comodidades">
+    <span [title]="comodidade.label">{{ icons.get(comodidade.key) }}</span>
+  </ng-container>
+</div>

@@ -3,43 +3,8 @@ import {Amenity} from 'src/app/entities/hotel/amenity';
 
 @Component({
   selector: 'comodidades',
-  template: `
-    <div *ngIf="mostrarNome" ngClass="comodidades__container---com-titulo">
-      <ng-container *ngFor="let secao of comodidadesSecoes">
-        <ng-container *ngFor="let comodidade of comodidades.slice(secao * 4, secao * 4 + 4)">
-          <span class="comodidade__titulo" *ngIf="mostrarNome">
-            <span>{{ icons.get(comodidade.key) }}</span>
-            {{ comodidade.label }}
-          </span>
-        </ng-container>
-      </ng-container>
-    </div>
-    <div *ngIf="!mostrarNome" class="comodidades__container">
-      <ng-container *ngFor="let comodidade of comodidades">
-        <span [title]="comodidade.label">{{ icons.get(comodidade.key) }}</span>
-      </ng-container>
-    </div>
-  `,
-  styles: [
-    `
-      .comodidades__container {
-        display: inline-flex;
-        gap: 3px;
-      }
-      .comodidades__container---com-titulo {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 15px;
-        justify-content: space-between;
-        min-width: 770px;
-        font-size: 0.75rem;
-      }
-      .comodidade__titulo {
-        display: inline-flex;
-        gap: 3px;
-      }
-    `,
-  ],
+  templateUrl: './comodidades.component.html',
+  styleUrls: ['./comodidades.component.css'],
 })
 export class ComodidadesComponent implements OnInit {
   @Input() comodidades: Amenity[] = [];

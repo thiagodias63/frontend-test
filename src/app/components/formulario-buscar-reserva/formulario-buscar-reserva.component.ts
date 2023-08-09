@@ -11,33 +11,8 @@ import * as fromApp from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'formulario-buscar-reserva',
-  template: ` <form nz-form nzLayout="vertical" [formGroup]="buscarReservaForm" (ngSubmit)="aoBuscar()">
-    <nz-form-item>
-      <nz-form-label [nzSpan]="24" nzFor="destino" nzRequired>Destino</nz-form-label>
-      <nz-form-control [nzSpan]="24" *ngIf="options$ | async as options" nzHasFeedback>
-        <input nz-input name="destino" type="text" id="destino" formControlName="destino" [nzAutocomplete]="auto" required />
-        <nz-autocomplete nzBackfill #auto>
-          <nz-auto-option *ngFor="let option of options" [nzValue]="option.key">{{ option.value }}</nz-auto-option>
-        </nz-autocomplete>
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label [nzSpan]="24" nzFor="nomeHotel">Nome do hotel</nz-form-label>
-      <nz-form-control [nzSpan]="24">
-        <input nz-input name="nomeHotel" type="text" id="nomeHotel" formControlName="nomeHotel" />
-      </nz-form-control>
-    </nz-form-item>
-
-    <button type="submit" nz-button class="buscar-reserva__buscar" nzSize="large" nzShape="round" nzType="primary">{{ textoBotaoBuscar }}</button>
-  </form>`,
-  styles: [
-    `
-      .buscar-reserva__buscar {
-        float: right;
-      }
-    `,
-  ],
+  templateUrl: './formulario-buscar-reserva.component.html',
+  styleUrls: ['./formulario-buscar-reserva.component.css'],
 })
 export class FormularioBuscarReservaComponent implements OnDestroy {
   textoBotaoBuscar: 'Buscar' | 'Alterar Busca' = 'Buscar';

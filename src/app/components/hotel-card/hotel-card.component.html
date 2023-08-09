@@ -1,0 +1,15 @@
+<nz-card *ngIf="hotel">
+  <div class="hotel-card__grid">
+    <hotel-carousel-images [imagens]="hotel.images" />
+
+    <hotel-card-secao-informacoes
+      [nome]="hotel.name"
+      [descricao]="hotel.description"
+      [avaliacao]="hotel.stars"
+      [comodidades]="hotel.amenities"
+      [reembolsavel]="hotel.hasRefundableRoom"
+    />
+    <div class="divisao"></div>
+    <hotel-card-secao-valores (aoSelecionarHotel)="selecionarHotel()" />
+  </div>
+</nz-card>

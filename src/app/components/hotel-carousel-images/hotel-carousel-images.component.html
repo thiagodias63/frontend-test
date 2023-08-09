@@ -1,0 +1,17 @@
+<nz-carousel nzEffect="scrollx" [nzDots]="false" [ngStyle]="{height: fotoHotelGrande ? '418px' : '255px'}">
+  <div nz-carousel-content *ngFor="let image of imagens; let index = index">
+    <div
+      [ngStyle]="{backgroundImage: 'url(' + image + ')'}"
+      class="hotel-carousel-images__foto-hotel"
+      [ngClass]="{'hotel-carousel-images__foto-hotel--grande': fotoHotelGrande}"
+    >
+      <button class="hotel-carousel-images__botao-slide" (click)="aoAlterarAImagem('pre')">
+        <span nz-icon nzType="left" nzTheme="outline"></span>
+      </button>
+      <span class="hotel-carousel-images__indice-imagem" *ngIf="fotoHotelGrande">{{ index + 1 }}/{{ imagens.length }} </span>
+      <button class="hotel-carousel-images__botao-slide" (click)="aoAlterarAImagem('next')">
+        <span nz-icon nzType="right" nzTheme="outline"></span>
+      </button>
+    </div>
+  </div>
+</nz-carousel>

@@ -1,0 +1,42 @@
+<ng-container *ngIf="hotelSelecionado$ | async as hotelSelecionado">
+  <nz-drawer [nzClosable]="false" [nzVisible]="!!hotelSelecionado" nzPlacement="right" [nzWidth]="830" (nzOnClose)="aoFechar()">
+    <ng-container *nzDrawerContent>
+      <div class="hotel-drawer__avaliacoes">
+        <span>{{ hotelSelecionado.stars }}</span>
+        <nz-rate [nzDisabled]="true" [ngModel]="hotelSelecionado.stars"></nz-rate>
+      </div>
+
+      <section>
+        <h1 class="hotel-drawer__nome-hotel">{{ hotelSelecionado.name }}</h1>
+        <p class="hotel-drawer__endereco-hotel">{{ hotelSelecionado.address | addressPipe }}</p>
+      </section>
+
+      <hotel-carousel-images [fotoHotelGrande]="true" [imagens]="hotelSelecionado.images" />
+
+      <section>
+        <h2 class="hotel-drawer__titulo-secao">Facilidades do hotel</h2>
+        <hr />
+        <div class="hotel-drawer__comodidades">
+          <comodidades [mostrarNome]="true" [comodidades]="hotelSelecionado.amenities.slice(0, 4)" />
+          <button
+            *ngIf="!mostrarTodasComodidades"
+            nz-button
+            nzType="default"
+            class="hotel-drawer__botao-mostrar-comodidades"
+            (click)="aoMostrarTodasComodidades()"
+            nzBlock
+          >
+            Mostrar todas as facilidades
+          </button>
+          <comodidades *ngIf="mostrarTodasComodidades" [mostrarNome]="true" [comodidades]="hotelSelecionado.amenities.slice(4)" />
+        </div>
+        <hr />
+      </section>
+
+      <section>
+        <h2 class="hotel-drawer__titulo-secao">Conheça um pouco mais</h2>
+        <p>{{ hotelSelecionado.description }}</p>
+      </section>
+    </ng-container>
+  </nz-drawer>
+</ng-container>

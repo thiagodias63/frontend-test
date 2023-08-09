@@ -7,21 +7,7 @@ import * as fromApp from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'organizar-listagem-reservas',
-  template: `<ng-container *ngIf="vm$ | async as vm">
-    <div *ngIf="vm.mostrarOrganizadoPor">
-      <span> Organizar por: </span>
-      <a nz-dropdown [nzDropdownMenu]="menu">
-        {{ vm.organizarPorSelecionado }}
-        <span nz-icon nzType="down"></span>
-      </a>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu nzSelectable>
-          <li (click)="alterarOrganizarPor('Recomendados')" nz-menu-item>Recomendados</li>
-          <li (click)="alterarOrganizarPor('Melhor Avaliados')" nz-menu-item>Melhor Avaliados</li>
-        </ul>
-      </nz-dropdown-menu>
-    </div>
-  </ng-container>`,
+  templateUrl: './organizar-listagem-reservas.component.html',
 })
 export class OrganizarListagemReservasComponent {
   vm$: Observable<{mostrarOrganizadoPor: boolean; organizarPorSelecionado: organizarPorOpcoes}>;

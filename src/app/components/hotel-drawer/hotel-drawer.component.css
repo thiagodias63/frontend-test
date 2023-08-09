@@ -1,0 +1,40 @@
+.hotel-drawer__avaliacoes {
+  font-size: 0.675rem;
+}
+::ng-deep .hotel-drawer__avaliacoes .ant-rate-star:not(:last-child) {
+  margin: 0;
+}
+::ng-deep .hotel-drawer__avaliacoes .ant-rate {
+  font-size: 0.875rem;
+  margin-left: 5px;
+}
+::ng-deep .hotel-drawer__avaliacoes .ant-rate-star svg {
+  height: 0.875rem;
+  width: 0.875rem;
+}
+.hotel-drawer__nome-hotel {
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+  margin-top: 16px;
+  margin-bottom: 10px;
+}
+.hotel-drawer__endereco-hotel {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+.hotel-drawer__titulo-secao {
+  margin-top: 30px;
+  font-size: 1.125rem;
+}
+.hotel-drawer__comodidades {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.hotel-drawer__botao-mostrar-comodidades {
+  color: var(--primaryColor);
+  border-color: var(--primaryColor);
+  width: fit-content;
+  border-radius: 25px;
+}

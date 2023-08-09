@@ -1,0 +1,9 @@
+<div class="breadcrumb__container">
+  <nz-breadcrumb nzSeparator=">">
+    <nz-breadcrumb-item>Início</nz-breadcrumb-item>
+    <nz-breadcrumb-item>Hotéis</nz-breadcrumb-item>
+    <nz-breadcrumb-item *ngIf="destinoSelecionado$ | async as destinoSelecionado">
+      <a>{{ destinoSelecionado.name }}, {{ destinoSelecionado.state.shortname }}</a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>

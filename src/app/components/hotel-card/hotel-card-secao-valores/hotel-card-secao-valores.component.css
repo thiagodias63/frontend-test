@@ -1,0 +1,24 @@
+.secao-valores__container {
+  padding-left: 1.5rem;
+  padding-top: 1rem;
+  font-size: 0.625rem;
+  line-height: 1rem;
+}
+.total__row {
+  margin: 0.25rem 0;
+}
+.total__row,
+.impostos__row {
+  display: block;
+  color: black;
+}
+.total__value {
+  font-size: 1.25rem;
+}
+.per-noite__row {
+  display: block;
+  color: var(--secondaryColor);
+}
+.botao-selecionar {
+  margin-top: 2rem;
+}

@@ -1,0 +1,12 @@
+<section class="secao-informacoes__container">
+  <h2 class="secao-informacoes__nome-hotel">{{ nome }}</h2>
+  <p class="secao-informacoes__localizacao">{{ descricao }}</p>
+  <div class="secao-informacoes__avaliacao">
+    <span>{{ avaliacao }}</span>
+    <nz-rate [nzDisabled]="true" [ngModel]="avaliacao"></nz-rate>
+    <nz-divider class="divisor" nzType="vertical"></nz-divider>
+    <comodidades [comodidades]="comodidades" />
+  </div>
+
+  <span *ngIf="reembolsavel" class="reembolsavel-badge">Reembolsável</span>
+</section>

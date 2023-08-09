@@ -1,0 +1,16 @@
+.comodidades__container {
+  display: inline-flex;
+  gap: 3px;
+}
+.comodidades__container---com-titulo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+  justify-content: space-between;
+  min-width: 770px;
+  font-size: 0.75rem;
+}
+.comodidade__titulo {
+  display: inline-flex;
+  gap: 3px;
+}

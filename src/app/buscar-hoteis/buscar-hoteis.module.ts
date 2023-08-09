@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BuscarHoteisComponent} from './buscar-hoteis.component';
-import {ReservarHotelCardComponent} from '../components/reservar-hotel-card/reservar-hotel-card';
+import {ReservarHotelCardComponent} from '../components/reservar-hotel-card/reservar-hotel-card.component';
 import {FormularioBuscarReservaComponent} from '../components/formulario-buscar-reserva/formulario-buscar-reserva.component';
 import {OrganizarListagemReservasComponent} from '../components/organizar-listagem-reservas/organizar-listagem-reservas.component';
 import {HotelCardComponent} from '../components/hotel-card/hotel-card.component';
