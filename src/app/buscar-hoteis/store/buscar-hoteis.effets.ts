@@ -24,7 +24,6 @@ export class BuscarHoteisEffects {
       this.actions$.pipe(
         ofType(iniciarCarregamentoDeDestinosAction),
         switchMap((): Observable<Place[]> => this.http.get<Place[]>('assets/place.json')),
-        tap((response: Place[]) => console.log(response)),
         switchMap((response: Place[]) => of(alterarDestinosAction({destinos: response})))
       ),
     {dispatch: true}
