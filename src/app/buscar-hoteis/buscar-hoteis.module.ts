@@ -18,6 +18,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BreadcrumbModule} from '../components/breadcrumb/breadcrumb.module';
 import {NzAutocompleteModule} from 'ng-zorro-antd/auto-complete';
 import {CommonModule} from '@angular/common';
+import {NzSkeletonModule} from 'ng-zorro-antd/skeleton';
+import {NzIconModule} from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import {CommonModule} from '@angular/common';
     NzCarouselModule,
     BreadcrumbModule,
     NzAutocompleteModule,
+    NzSkeletonModule,
+    NzIconModule,
   ],
 })
 export class BuscarHoteisModule {}

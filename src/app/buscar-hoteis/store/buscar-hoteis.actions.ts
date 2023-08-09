@@ -1,4 +1,5 @@
 import {createAction, props} from '@ngrx/store';
+import {organizarPorOpcoes} from 'src/app/entities/core/organizar-por';
 import {Hotel} from 'src/app/entities/hotel/hotel';
 import {Place} from 'src/app/entities/place/place';
 
@@ -9,3 +10,7 @@ export const alterarDestinosAction = createAction('[Buscar Hoteis] Alterar desti
 export const alterarFiltroDestinoAction = createAction('[Buscar Hoteis] Alterar filtro destino', props<{filtroDestino: Place}>());
 
 export const alterarHoteisActions = createAction('[Buscar Hoteis] Alterar hoteis', props<{hoteis: Hotel[]}>());
+
+export const alterarOrganizarPorAction = createAction('[Buscar Hoteis] Alterar organizado por', props<{novoFiltro: organizarPorOpcoes}>());
+
+export const alterarSemHoteisAction = createAction('[Buscar Hoteis] Alterar sem hoteis', props<{semHoteis: boolean}>());

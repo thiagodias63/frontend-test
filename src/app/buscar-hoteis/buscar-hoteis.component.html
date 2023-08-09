@@ -3,8 +3,16 @@
   <breadcrumb />
   <organizar-listagem-reservas />
 </div>
-<div>
-  <div *ngIf="hoteis$ | async as hoteis" class="hoteis__grid">
-    <hotel-card *ngFor="let hotel of hoteis" [hotel]="hotel"></hotel-card>
+<div *ngIf="vm$ | async as vm">
+  <div class="hoteis__grid">
+    <hotel-card *ngFor="let hotel of vm.hoteis" [hotel]="hotel"></hotel-card>
+  </div>
+
+  <div *ngIf="vm.carregandoHoteis">
+    <nz-skeleton *ngFor="let skeleton of skeletons"></nz-skeleton>
+  </div>
+
+  <div *ngIf="vm.semHoteis">
+    <p>Não foi encontrado nenhum hotel.</p>
   </div>
 </div>

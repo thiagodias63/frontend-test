@@ -3,10 +3,18 @@ import {Store} from '@ngrx/store';
 import {Observable, filter, find, map, of, switchMap, tap, withLatestFrom} from 'rxjs';
 import {Injectable} from '@angular/core';
 import * as fromApp from 'src/app/store/app.reducer';
-import {alterarDestinosAction, alterarFiltroDestinoAction, alterarHoteisActions, iniciarCarregamentoDeDestinosAction} from './buscar-hoteis.actions';
+import {
+  alterarDestinosAction,
+  alterarFiltroDestinoAction,
+  alterarHoteisActions,
+  alterarOrganizarPorAction,
+  alterarSemHoteisAction,
+  iniciarCarregamentoDeDestinosAction,
+} from './buscar-hoteis.actions';
 import {HttpClient} from '@angular/common/http';
 import {Place} from 'src/app/entities/place/place';
 import {Hotel} from 'src/app/entities/hotel/hotel';
+import {organizarPorOpcoes} from 'src/app/entities/core/organizar-por';
 
 @Injectable()
 export class BuscarHoteisEffects {
@@ -24,21 +32,38 @@ export class BuscarHoteisEffects {
   buscarHoteis = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(alterarFiltroDestinoAction),
-        withLatestFrom(this.store.select('buscarHoteis').pipe(map((buscarHoteisState) => buscarHoteisState.filtroDestino))),
-        // tap(([_, filtroDestino]) => console.log(filtroDestino?.placeId)),
+        ofType(alterarFiltroDestinoAction, alterarOrganizarPorAction),
+        withLatestFrom(
+          this.store.select('buscarHoteis').pipe(
+            map((buscarHoteisState): {filtroDestino: Place | null; organizarPorSelecionado: organizarPorOpcoes} => {
+              return {
+                filtroDestino: buscarHoteisState.filtroDestino,
+                organizarPorSelecionado: buscarHoteisState.organizarPorSelecionado,
+              };
+            })
+          )
+        ),
         switchMap(
-          ([_, filtroDestino]): Observable<HotelResponse | undefined> =>
+          ([_, buscarHoteisState]): Observable<Hotel[]> =>
             this.http.get<HotelResponse[]>('assets/hotel.json').pipe(
               map((hoteis: HotelResponse[]): HotelResponse | undefined => {
                 return hoteis.find((hotel: HotelResponse) => {
-                  return hotel.placeId === filtroDestino?.placeId;
+                  return hotel.placeId === buscarHoteisState.filtroDestino?.placeId;
                 });
-              })
+              }),
+              map(
+                (response: HotelResponse | undefined): Hotel[] =>
+                  response?.hotels.sort((a: Hotel, b: Hotel) => {
+                    const parametroDeComparacao = buscarHoteisState.organizarPorSelecionado === 'Recomendados' ? 'name' : 'stars';
+                    const ordenacao = buscarHoteisState.organizarPorSelecionado === 'Recomendados' ? 1 : -1;
+                    if (a[parametroDeComparacao] < b[parametroDeComparacao]) return -1 * ordenacao;
+                    if (a[parametroDeComparacao] > b[parametroDeComparacao]) return 1 * ordenacao;
+                    return 0;
+                  }) || []
+              )
             )
         ),
-        tap((response) => console.log(response)),
-        switchMap((response: HotelResponse | undefined) => of(alterarHoteisActions({hoteis: response?.hotels || []})))
+        switchMap((response: Hotel[]) => of(alterarHoteisActions({hoteis: response}), alterarSemHoteisAction({semHoteis: !response.length})))
       ),
     {dispatch: true}
   );

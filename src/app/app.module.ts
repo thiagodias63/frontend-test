@@ -16,6 +16,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {BuscarHoteisModule} from './buscar-hoteis/buscar-hoteis.module';
 import {BuscarHoteisEffects} from './buscar-hoteis/store/buscar-hoteis.effets';
+import {NzIconModule} from 'ng-zorro-antd/icon';
 
 registerLocaleData(en);
 
@@ -29,6 +30,7 @@ registerLocaleData(en);
     NzPageHeaderModule,
     NzGridModule,
     BuscarHoteisModule,
+    NzIconModule,
     StoreModule.forRoot(fromApp.appReducer, {}),
     EffectsModule.forRoot([BuscarHoteisEffects]),
   ],
