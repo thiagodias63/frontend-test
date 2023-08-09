@@ -8,9 +8,9 @@ import {Hotel} from 'src/app/entities/hotel/hotel';
       <div class="hotel-card__grid">
         <div>
           <nz-carousel [nzEffect]="effect">
-            <div nz-carousel-content *ngFor="let image of hotel.images">
+            <!-- <div nz-carousel-content *ngFor="let image of hotel.images">
               <div [ngStyle]="{backgroundImage: 'url(' + image + ')'}" class="hotel-card__image"></div>
-            </div>
+            </div> -->
           </nz-carousel>
         </div>
         <hotel-card-secao-informacoes

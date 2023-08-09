@@ -35,9 +35,10 @@ export class BuscarHoteisEffects {
         ofType(alterarFiltroDestinoAction, alterarOrganizarPorAction),
         withLatestFrom(
           this.store.select('buscarHoteis').pipe(
-            map((buscarHoteisState): {filtroDestino: Place | null; organizarPorSelecionado: organizarPorOpcoes} => {
+            map((buscarHoteisState): {filtroDestino: Place | null; nomeHotel: string; organizarPorSelecionado: organizarPorOpcoes} => {
               return {
                 filtroDestino: buscarHoteisState.filtroDestino,
+                nomeHotel: buscarHoteisState.nomeHotel,
                 organizarPorSelecionado: buscarHoteisState.organizarPorSelecionado,
               };
             })
@@ -53,13 +54,15 @@ export class BuscarHoteisEffects {
               }),
               map(
                 (response: HotelResponse | undefined): Hotel[] =>
-                  response?.hotels.sort((a: Hotel, b: Hotel) => {
-                    const parametroDeComparacao = buscarHoteisState.organizarPorSelecionado === 'Recomendados' ? 'name' : 'stars';
-                    const ordenacao = buscarHoteisState.organizarPorSelecionado === 'Recomendados' ? 1 : -1;
-                    if (a[parametroDeComparacao] < b[parametroDeComparacao]) return -1 * ordenacao;
-                    if (a[parametroDeComparacao] > b[parametroDeComparacao]) return 1 * ordenacao;
-                    return 0;
-                  }) || []
+                  response?.hotels
+                    .filter((hotel: Hotel) => hotel.name.toLocaleLowerCase().includes(buscarHoteisState.nomeHotel.toLocaleLowerCase()))
+                    .sort((a: Hotel, b: Hotel) => {
+                      const parametroDeComparacao = buscarHoteisState.organizarPorSelecionado === 'Recomendados' ? 'name' : 'stars';
+                      const ordenacao = buscarHoteisState.organizarPorSelecionado === 'Recomendados' ? 1 : -1;
+                      if (a[parametroDeComparacao] < b[parametroDeComparacao]) return -1 * ordenacao;
+                      if (a[parametroDeComparacao] > b[parametroDeComparacao]) return 1 * ordenacao;
+                      return 0;
+                    }) || []
               )
             )
         ),

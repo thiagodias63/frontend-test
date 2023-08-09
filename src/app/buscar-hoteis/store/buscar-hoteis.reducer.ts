@@ -12,6 +12,7 @@ import {organizarPorOpcoes} from 'src/app/entities/core/organizar-por';
 
 export interface State {
   filtroDestino: Place | null;
+  nomeHotel: string;
   destinos: Place[];
   hoteis: Hotel[];
   mostrarOrganizadoPor: boolean;
@@ -22,6 +23,7 @@ export interface State {
 
 const initialState: State = {
   filtroDestino: null,
+  nomeHotel: '',
   destinos: [],
   hoteis: [],
   mostrarOrganizadoPor: false,
@@ -36,13 +38,13 @@ export const buscarHoteisReducer = createReducer(
     return {...state, destinos: action.destinos};
   }),
   on(alterarFiltroDestinoAction, (state, action) => {
-    return {...state, filtroDestino: action.filtroDestino, carregandoHoteis: true};
+    return {...state, filtroDestino: action.filtroDestino, nomeHotel: action.nomeHotel, hoteis: [], carregandoHoteis: true};
   }),
   on(alterarHoteisActions, (state, action) => {
     return {...state, hoteis: action.hoteis, mostrarOrganizadoPor: true, carregandoHoteis: false};
   }),
   on(alterarOrganizarPorAction, (state, action) => {
-    return {...state, organizarPorSelecionado: action.novoFiltro, carregandoHoteis: true};
+    return {...state, organizarPorSelecionado: action.novoFiltro, hoteis: [], carregandoHoteis: true};
   }),
   on(alterarSemHoteisAction, (state, action) => {
     return {...state, semHoteis: action.semHoteis};

@@ -7,7 +7,7 @@ export const iniciarCarregamentoDeDestinosAction = createAction('[Buscar Hoteis]
 
 export const alterarDestinosAction = createAction('[Buscar Hoteis] Alterar destinos', props<{destinos: Place[]}>());
 
-export const alterarFiltroDestinoAction = createAction('[Buscar Hoteis] Alterar filtro destino', props<{filtroDestino: Place}>());
+export const alterarFiltroDestinoAction = createAction('[Buscar Hoteis] Alterar filtro destino', props<{filtroDestino: Place; nomeHotel: string}>());
 
 export const alterarHoteisActions = createAction('[Buscar Hoteis] Alterar hoteis', props<{hoteis: Hotel[]}>());
 

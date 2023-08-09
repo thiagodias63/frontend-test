@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {NzAutocompleteOptionComponent} from 'ng-zorro-antd/auto-complete';
-import {Observable, map, startWith, switchMap} from 'rxjs';
+import {Observable, Subscription, map, startWith, switchMap} from 'rxjs';
 import {alterarFiltroDestinoAction} from 'src/app/buscar-hoteis/store/buscar-hoteis.actions';
 import {nomesDestinos} from 'src/app/buscar-hoteis/store/buscar-hoteis.selectors';
 import {KeyValuePair} from 'src/app/entities/core/key-value';
@@ -22,6 +22,13 @@ import * as fromApp from 'src/app/store/app.reducer';
       </nz-form-control>
     </nz-form-item>
 
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzFor="nomeHotel">Nome do hotel</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input name="nomeHotel" type="text" id="nomeHotel" formControlName="nomeHotel" />
+      </nz-form-control>
+    </nz-form-item>
+
     <button type="submit" nz-button class="buscar-reserva__buscar" nzSize="large" nzShape="round" nzType="primary">{{ textoBotaoBuscar }}</button>
   </form>`,
   styles: [
@@ -32,7 +39,7 @@ import * as fromApp from 'src/app/store/app.reducer';
     `,
   ],
 })
-export class FormularioBuscarReservaComponent {
+export class FormularioBuscarReservaComponent implements OnDestroy {
   textoBotaoBuscar: 'Buscar' | 'Alterar Busca' = 'Buscar';
   destinos$: Observable<Place[]>;
   nomesDestinos$: Observable<KeyValuePair[]>;
@@ -40,12 +47,16 @@ export class FormularioBuscarReservaComponent {
   destinos: Place[] = [];
   buscarReservaForm = this.formBuilder.group({
     destino: ['', [Validators.minLength(3), Validators.required]],
+    nomeHotel: [''],
   });
+  destinosSubscription: Subscription;
+  semHoteis$: Observable<boolean>;
 
   constructor(private formBuilder: FormBuilder, private store: Store<fromApp.AppState>) {
     this.destinos$ = this.store.select('buscarHoteis').pipe(map((buscarHoteisState) => buscarHoteisState.destinos));
+    this.semHoteis$ = this.store.select('buscarHoteis').pipe(map((buscarHoteisState) => buscarHoteisState.semHoteis));
     this.nomesDestinos$ = this.store.select(nomesDestinos);
-    this.destinos$.subscribe((destinos: Place[]) => {
+    this.destinosSubscription = this.destinos$.subscribe((destinos: Place[]) => {
       this.destinos = destinos;
     });
 
@@ -82,7 +93,11 @@ export class FormularioBuscarReservaComponent {
     });
     if (!destino) return;
 
-    this.store.dispatch(alterarFiltroDestinoAction({filtroDestino: destino}));
+    this.store.dispatch(alterarFiltroDestinoAction({filtroDestino: destino, nomeHotel: this.buscarReservaForm.value.nomeHotel || ''}));
     this.textoBotaoBuscar = 'Alterar Busca';
+  }
+
+  ngOnDestroy(): void {
+    this.destinosSubscription?.unsubscribe();
   }
 }
