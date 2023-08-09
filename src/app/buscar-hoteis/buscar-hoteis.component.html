@@ -8,8 +8,8 @@
     <hotel-card *ngFor="let hotel of vm.hoteis" [hotel]="hotel"></hotel-card>
   </div>
 
-  <div *ngIf="vm.carregandoHoteis">
-    <nz-skeleton *ngFor="let skeleton of skeletons"></nz-skeleton>
+  <div *ngIf="vm.carregandoHoteis" class="carregando-hoteis__row">
+    <nz-spin nzSimple></nz-spin>
   </div>
 
   <div *ngIf="vm.semHoteis">
